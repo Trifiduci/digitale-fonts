@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watercalculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://raw.githubusercontent.com/Trifiduci/digitale-fonts/main/PizzaMath.png') no-repeat;
+            background-size: 1440px 2840px;
+            background-position: center;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            width: 1440px;
+            height: 2840px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 600px;
+            margin: 20px 0;
+        }
+        label {
+            flex: 1;
+            text-align: left;
+            font-weight: bold;
+        }
+        input {
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: right;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .output {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Watercalculator</h2>
+        
+        <div class="input-group">
+            <label for="eiwit">Eiwitpercentage (%):</label>
+            <input type="number" id="eiwit" placeholder="Voer eiwitpercentage in" step="0.1">
+        </div>
+        
+        <div class="input-group">
+            <label for="bloem">Hoeveelheid bloem (g):</label>
+            <input type="number" id="bloem" placeholder="Voer hoeveelheid bloem in">
+        </div>
+        
+        <button onclick="berekenWater()">Bereken Water</button>
+        
+        <div class="output" id="resultaat"></div>
+    </div>
+    
+    <script>
+        function berekenWater() {
+            let eiwit = parseFloat(document.getElementById('eiwit').value);
+            let bloem = parseFloat(document.getElementById('bloem').value);
+            
+            if (isNaN(eiwit) || isNaN(bloem) || eiwit <= 0 || bloem <= 0) {
+                document.getElementById('resultaat').innerHTML = "Voer geldige waarden in.";
+                return;
+            }
+            
+            let waterPercentage = (0.067 * (eiwit ** 2)) + (0.9328 * eiwit) + 41.354;
+            let waterMl = Math.round((waterPercentage * bloem) / 100);
+            
+            document.getElementById('resultaat').innerHTML = `
+                Benodigde hoeveelheid water: <b>${waterMl} ml</b><br>
+                Waterpercentage t.o.v. bloem: <b>${waterPercentage.toFixed(2)}%</b>
+            `;
+        }
+    </script>
+</body>
+</html>
